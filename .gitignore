@@ -1,0 +1,6 @@
+__pycache__/
+*.pyc
+raw/
+clean.json
+layout.json
+*.tmp
