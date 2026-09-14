@@ -56,10 +56,20 @@ reliability first, then price, then mileage, then features.
 "Est. Market" is fitted per model from the 262 listings in this dataset (price regressed
 on year and mileage). It is a sanity check on asking price, not an appraisal.
 
-## Refreshing
+## Keeping it up to date
+
+Two ways, same scoring logic:
+
+**In Google Sheets (no local setup).** Paste `apps_script/Code.gs` into the
+spreadsheet once; a **Car Search → Refresh from CARFAX** menu then re-pulls and
+rescores in place, preserving your criteria, weights and notes. Setup steps and
+caveats: [`apps_script/README.md`](apps_script/README.md).
+
+**Locally.**
 
 ```bash
 pip install openpyxl
+sudo apt-get install -y libreoffice-calc   # only needed for the recalc step
 ./scripts/run_all.sh
 ```
 
