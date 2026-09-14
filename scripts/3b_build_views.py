@@ -4,10 +4,13 @@ from openpyxl.styles import Font, PatternFill, Alignment, Border, Side
 from openpyxl.utils import get_column_letter
 from openpyxl.formatting.rule import ColorScaleRule, CellIsRule
 
-BASE=os.path.dirname(os.path.abspath(__file__))
+ROOT=os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+DATA=os.path.join(ROOT,'data')
+BASE=os.path.join(ROOT,'output')
+os.makedirs(BASE,exist_ok=True)
 OUT=os.path.join(BASE,'Bella_Car_Search.xlsx')
-D=json.load(open(os.path.join(BASE,'clean.json')))
-LAY=json.load(open(os.path.join(BASE,'layout.json')))
+D=json.load(open(os.path.join(DATA,'scored_latest.json')))
+LAY=json.load(open(os.path.join(DATA,'layout.json')))
 H=LAY['H']; FIRST=LAY['first']
 FONT='Arial'; NAVY='1F3864'; ACC='2E5C8A'; YEL='FFF2CC'
 HDR=PatternFill('solid',fgColor=NAVY); SUB=PatternFill('solid',fgColor=ACC)

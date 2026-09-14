@@ -3,9 +3,12 @@ from openpyxl import load_workbook
 from openpyxl.styles import Font, PatternFill, Alignment, Border, Side
 from openpyxl.utils import get_column_letter
 
-BASE=os.path.dirname(os.path.abspath(__file__))
+ROOT=os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+DATA=os.path.join(ROOT,'data')
+BASE=os.path.join(ROOT,'output')
+os.makedirs(BASE,exist_ok=True)
 OUT=os.path.join(BASE,'Bella_Car_Search.xlsx')
-LAY=json.load(open(os.path.join(BASE,'layout.json')))
+LAY=json.load(open(os.path.join(DATA,'layout.json')))
 H=LAY['H']; FIRST=LAY['first']; LAST=LAY['last']
 FONT='Arial'; NAVY='1F3864'
 thin=Side(style='thin',color='BFBFBF'); BOX=Border(left=thin,right=thin,top=thin,bottom=thin)
@@ -109,8 +112,8 @@ cav=[('Verify CPO with the dealer','CARFAX flags certification from the dealer f
  ('Features come from the trim, not the VIN','Heated seats, sunroof and the rest are read from the factory equipment list for that trim. It is accurate for standard equipment but can miss optional packages. Confirm on the window sticker.'),
  ('"Est. Market" is our estimate, not CARFAX','It is a fit across the 262 listings here, adjusting for year and mileage within each model. Treat it as a sanity check on the asking price, not an appraisal.'),
  ('Prices move','Listings change daily and the good ones go fast. The "Days Listed" and "Price Drop" columns tell you which have been sitting - those have the most negotiating room.'),
- ('Get a pre-purchase inspection','Even on a certified car with clean history, an independent inspection is the best $150 you will spend.'),
- ('Mileage caps are yours, not the market','Your Subaru cap of 50k is tight and cuts a lot of Outbacks. If you like the Outback, loosening that cap on the Search Criteria tab opens up more.')]
+ ('The value badge is your tightest filter','Requiring GOOD or GREAT value cut the field from 144 cars to 53 - more than any other requirement. It reflects asking price against the local market, so a FAIR car is not a bad car, just not a bargain. Turning that filter off on the Search Criteria tab is the single biggest way to widen the search.'),('Get a pre-purchase inspection','Even on a certified car with clean history, an independent inspection is the best $150 you will spend.'),
+ ('Mileage caps are yours, not the market','8 Outbacks make the Shortlist under your 50,000 cap. Raising it to 80,000 on the Search Criteria tab adds 2 more, and 100,000 adds 4. Subarus routinely run past 150,000 miles, so the cap is costing you choices rather than protecting you.')]
 for i,(t,d) in enumerate(cav):
     R=46+i
     a=sh.cell(row=R,column=2,value=t); a.font=Font(name=FONT,size=10,bold=True); a.border=BOX

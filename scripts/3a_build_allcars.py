@@ -5,8 +5,11 @@ from openpyxl.utils import get_column_letter
 from openpyxl.worksheet.table import Table, TableStyleInfo
 from openpyxl.formatting.rule import ColorScaleRule, CellIsRule
 
-BASE=os.path.dirname(os.path.abspath(__file__))
-D=json.load(open(os.path.join(BASE,'clean.json')))
+ROOT=os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+DATA=os.path.join(ROOT,'data')
+BASE=os.path.join(ROOT,'output')
+os.makedirs(BASE,exist_ok=True)
+D=json.load(open(os.path.join(DATA,'scored_latest.json')))
 OUT=os.path.join(BASE,'Bella_Car_Search.xlsx')
 
 FONT='Arial'
@@ -211,6 +214,6 @@ mc=get_column_letter(H['Meets All'])
 ac.conditional_formatting.add(f"{mc}{first}:{mc}{last}",
     CellIsRule(operator='equal',formula=['"YES"'],fill=PatternFill('solid',fgColor='C6EFCE'),
                font=Font(name=FONT,size=10,bold=True,color='006100')))
-json.dump({'first':first,'last':last,'H':H,'NC':NC,'FEATCOLS':FEATCOLS},open(os.path.join(BASE,'layout.json'),'w'))
+json.dump({'first':first,'last':last,'H':H,'NC':NC,'FEATCOLS':FEATCOLS},open(os.path.join(DATA,'layout.json'),'w'))
 wb.save(OUT)
 print('saved',OUT,'rows',len(D))

@@ -2,7 +2,8 @@ import json, time, urllib.parse, urllib.request, os, sys
 
 ZIP, RADIUS = "46514", 75
 TARGETS = [("Toyota","4Runner"),("Toyota","RAV4"),("Honda","HR-V"),("Honda","CR-V"),("Subaru","Outback")]
-OUT = os.path.join(os.path.dirname(os.path.abspath(__file__)), "raw")
+ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+OUT = os.path.join(ROOT, "data")
 os.makedirs(OUT, exist_ok=True)
 
 def fetch(params, tries=4):
@@ -32,5 +33,5 @@ for make, model in TARGETS:
         page += 1
         time.sleep(0.4)
 
-json.dump(all_rows, open(os.path.join(OUT,"listings.json"),"w"))
+json.dump(all_rows, open(os.path.join(OUT,"carfax_listings_latest.json"),"w"))
 print("TOTAL UNIQUE:", len(all_rows))

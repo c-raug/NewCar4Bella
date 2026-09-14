@@ -1,6 +1,7 @@
 import json, os, datetime, statistics, re
-BASE=os.path.dirname(os.path.abspath(__file__))
-rows=json.load(open(os.path.join(BASE,'raw/listings.json')))
+ROOT=os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+DATA=os.path.join(ROOT,'data')
+rows=json.load(open(os.path.join(DATA,'carfax_listings_latest.json')))
 TODAY=datetime.date(2026,9,14)
 MILE_CAP={'Toyota':100000,'Honda':70000,'Subaru':50000}
 
@@ -161,7 +162,7 @@ for l in rows:
       url=l.get('vdpUrl'),
     ))
 
-json.dump(out, open(os.path.join(BASE,'clean.json'),'w'), indent=0)
+json.dump(out, open(os.path.join(DATA,'scored_latest.json'),'w'), indent=0)
 print('rows:',len(out))
 hard=[r for r in out if r['drivetype'] in ('AWD','4WD','4X4') and r['no_accidents'] and r['svc_records']>0
       and r['miles']<=MILE_CAP[r['make']] and r['value_badge'] in ('GOOD','GREAT') and r['feats']['Heated Seats']]
